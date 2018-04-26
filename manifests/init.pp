@@ -2,9 +2,12 @@
 
 class beatwrap(String $elsrv) {
 
-    contain elastic_stack::repo
+    include elastic_stack::repo
 
-    package { 'filebeat': ensure => present }
+    package { 'filebeat':
+        ensure  => present,
+        require => Class['elastic_stack::repo'],
+    }
 
     File {
         ensure  => present,
