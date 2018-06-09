@@ -18,7 +18,7 @@ class beatwrap(String $elsrv) {
         notify  => Service['filebeat'],
     }
 
-    file { 
+    file {
         default: * => $filedefaults;
 
         '/etc/filebeat/filebeat.yml':
