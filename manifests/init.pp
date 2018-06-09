@@ -9,7 +9,7 @@ class beatwrap(String $elsrv) {
         require => Class['elastic_stack::repo'],
     }
 
-    File {
+    $filedefaults = {
         ensure  => present,
         owner   => 'root',
         group   => 'root',
@@ -18,13 +18,15 @@ class beatwrap(String $elsrv) {
         notify  => Service['filebeat'],
     }
 
-    file { '/etc/filebeat/filebeat.yml':
-        content => template('beatwrap/filebeat.yml.erb'),
-    }
+    file { 
+        default: * => $filedefaults;
 
-    file { '/etc/filebeat/modules.d/system.yml':
-        content => template('beatwrap/modules.d/system.yml.erb'),
-        mode    => '0644',
+        '/etc/filebeat/filebeat.yml':
+            content => template('beatwrap/filebeat.yml.erb');
+
+        '/etc/filebeat/modules.d/system.yml':
+            content => template('beatwrap/modules.d/system.yml.erb'),
+            mode    => '0644';
     }
 
     service { 'filebeat':
