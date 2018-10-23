@@ -1,4 +1,4 @@
-# Custom deployment of filebeat and other elastics beats.
+# Custom deployment of filebeat and other elastic beats.
 
 class beatwrap(String $elsrv) {
 
